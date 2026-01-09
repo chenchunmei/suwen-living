@@ -80,6 +80,17 @@ const AIConsultant: React.FC = () => {
                     : 'bg-stone-50 text-stone-800 rounded-tl-none border border-stone-100'
                 }`}>
                   <div className="whitespace-pre-wrap">{msg.content}</div>
+                  {/* Display grounding sources if available */}
+                  {msg.groundingSources && msg.groundingSources.length > 0 && (
+                    <div className="mt-4 pt-4 border-t border-stone-100 space-y-2 text-left">
+                      <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">参考文献 / Sources</p>
+                      {msg.groundingSources.map((src, i) => (
+                        <a key={i} href={src.uri} target="_blank" rel="noopener noreferrer" className="block text-[10px] text-stone-500 hover:text-stone-800 underline transition-colors">
+                          {src.title}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

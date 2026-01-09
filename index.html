@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>素问生活 - 呼吸间的健康智慧</title>
+    <title>素问生活 - 极简健康美学</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 字体资源 -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- React & Babel CDNs (使用稳定的 UMD 版本) -->
+    <!-- React & Babel CDNs (UMD 版本最稳健) -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -29,24 +29,24 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
         
-        /* 页面加载前的占位样式 */
         #root:empty::before {
-            content: "正在加载素问生活...";
+            content: "正在开启素问生活...";
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             color: #a8a29e;
             font-family: serif;
             letter-spacing: 0.2em;
+            font-size: 14px;
         }
     </style>
 <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
-    "react/": "https://esm.sh/react@^19.2.3/"
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
   }
 }
 </script>
@@ -55,13 +55,12 @@
 <body>
     <div id="root"></div>
 
-    <!-- 关键修复：直接在 HTML 中配置模块映射和环境模拟 -->
-    <script type="text/babel" data-type="module" data-presets="react,typescript">
-        // 模拟环境变量
+    <!-- 关键修复：通过 Babel 插件系统加载，不使用 type="module" 避免 MIME 报错 -->
+    <script type="text/babel" data-presets="react,typescript" src="./index.tsx"></script>
+    
+    <script>
+        // 模拟环境变量，防止 SDK 报错
         window.process = { env: { API_KEY: "" } };
-        
-        // 引入所有逻辑
-        import App from './index.tsx';
     </script>
 <script type="module" src="/index.tsx"></script>
 </body>
