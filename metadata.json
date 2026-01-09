@@ -1,0 +1,8 @@
+{
+  "name": "素问生活 - 极简健康美学博客",
+  "description": "一个专注于科学养生、身心平衡与健康知识分享的精品博客平台，结合AI技术提供深度内容与实时咨询。",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
