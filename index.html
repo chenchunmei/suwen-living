@@ -9,10 +9,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 字体资源 -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- React & Babel CDNs -->
+    
+    <!-- React & Babel CDNs (使用稳定的 UMD 版本) -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <style>
         :root { --color-stone-50: #fbfaf8; }
         body {
@@ -26,6 +28,17 @@
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
+        
+        /* 页面加载前的占位样式 */
+        #root:empty::before {
+            content: "正在加载素问生活...";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: #a8a29e;
+            font-family: serif;
+            letter-spacing: 0.2em;
+        }
     </style>
 <script type="importmap">
 {
@@ -41,9 +54,13 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- 关键：使用 text/babel 并在 script 中处理 process.env 模拟 -->
-    <script type="text/babel" data-type="module">
+
+    <!-- 关键修复：直接在 HTML 中配置模块映射和环境模拟 -->
+    <script type="text/babel" data-type="module" data-presets="react,typescript">
+        // 模拟环境变量
         window.process = { env: { API_KEY: "" } };
+        
+        // 引入所有逻辑
         import App from './index.tsx';
     </script>
 <script type="module" src="/index.tsx"></script>
