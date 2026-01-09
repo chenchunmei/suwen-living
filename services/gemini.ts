@@ -2,7 +2,11 @@
 import { GoogleGenAI, GenerateContentResponse, Type } from "@google/genai";
 
 const getAIClient = () => {
-  return new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+  const apiKey = process.env.API_KEY || '';
+  if (!apiKey) {
+    console.warn("未检测到 API_KEY。AI 功能（问诊、构思）将无法正常工作。请在环境变量或代码中配置。");
+  }
+  return new GoogleGenAI({ apiKey });
 };
 
 export const chatWithAI = async (prompt: string, history: { role: 'user' | 'model', parts: { text: string }[] }[]) => {

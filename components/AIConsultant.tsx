@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { chatWithAI } from '../services/gemini';
-import { ChatMessage } from '../types';
+import { chatWithAI } from '../services/gemini.ts';
+import { ChatMessage } from '../types.ts';
 
 const AIConsultant: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -65,69 +65,37 @@ const AIConsultant: React.FC = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-3xl mx-auto space-y-8">
       <div className="text-center space-y-2">
         <h2 className="serif text-3xl text-stone-800 italic">读者信箱 / Editor's Desk</h2>
-        <p className="text-stone-400 text-sm tracking-widest font-light">CONSULT OUR EXPERT EDITOR</p>
       </div>
-
       <div className="bg-white border border-stone-100 shadow-sm rounded-lg overflow-hidden flex flex-col h-[600px]">
-        <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-8">
           {messages.map((msg, idx) => (
             <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[85%] ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
-                <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mb-2">
-                  {msg.role === 'user' ? 'READERS' : 'EDITOR'} · {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </p>
                 <div className={`inline-block text-sm leading-relaxed p-5 rounded-2xl ${
                   msg.role === 'user' 
                     ? 'bg-stone-800 text-white rounded-tr-none' 
                     : 'bg-stone-50 text-stone-800 rounded-tl-none border border-stone-100'
                 }`}>
                   <div className="whitespace-pre-wrap">{msg.content}</div>
-                  
-                  {msg.groundingSources && msg.groundingSources.length > 0 && (
-                    <div className="mt-4 pt-4 border-t border-stone-200/50">
-                      <div className="flex flex-wrap gap-2">
-                        {msg.groundingSources.map((source, sIdx) => (
-                          <a 
-                            key={sIdx} 
-                            href={source.uri} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-[9px] px-2 py-1 bg-white border border-stone-200 text-stone-500 hover:text-stone-800 rounded-md transition-all"
-                          >
-                            #{source.title}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
           ))}
-          {loading && (
-            <div className="flex justify-start">
-              <span className="text-xs text-stone-400 italic">主编正在撰写中...</span>
-            </div>
-          )}
         </div>
-
-        <div className="p-6 border-t border-stone-100 bg-stone-50/50">
-          <div className="relative">
-            <textarea
+        <div className="p-6 border-t border-stone-100">
+          <div className="relative flex gap-4">
+            <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
               placeholder="您的疑问..."
-              rows={1}
-              className="w-full bg-white border border-stone-200 rounded-lg px-5 py-4 text-sm focus:ring-0 focus:border-stone-400 transition-all outline-none resize-none pr-24"
+              className="flex-1 bg-white border border-stone-200 rounded-lg px-5 py-3 text-sm focus:border-stone-400 outline-none"
             />
             <button
               onClick={handleSend}
-              disabled={loading}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-stone-800 text-white px-5 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest hover:bg-stone-700 transition-all disabled:opacity-50"
+              className="bg-stone-800 text-white px-6 py-2 rounded-md text-[10px] font-bold uppercase"
             >
               发送
             </button>

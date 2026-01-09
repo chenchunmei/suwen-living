@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import Navigation from './components/Navigation';
-import AIConsultant from './components/AIConsultant';
-import HealthNews from './components/HealthNews';
-import WritersStudio from './components/WritersStudio';
-import { STATIC_ARTICLES } from './data/content';
-import { HealthArticle } from './types';
+import Navigation from './components/Navigation.tsx';
+import AIConsultant from './components/AIConsultant.tsx';
+import HealthNews from './components/HealthNews.tsx';
+import WritersStudio from './components/WritersStudio.tsx';
+import { STATIC_ARTICLES } from './data/content.ts';
+import { HealthArticle } from './types.ts';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -102,18 +102,6 @@ const App: React.FC = () => {
                 ))}
               </div>
             </section>
-
-            {/* Quote */}
-            <section className="py-40 text-center max-w-2xl mx-auto space-y-12">
-              <div className="w-16 h-px bg-stone-300 mx-auto"></div>
-              <blockquote className="serif text-4xl italic text-stone-800 leading-snug tracking-tight">
-                "万物有时，呼吸之间。真正的养生，是找回生命的律动。"
-              </blockquote>
-              <div className="space-y-1">
-                <cite className="text-[11px] font-black uppercase tracking-[0.4em] text-stone-800">— 素问编辑部</cite>
-                <p className="text-stone-300 text-[9px] uppercase tracking-widest italic">ESTABLISHED 2024</p>
-              </div>
-            </section>
           </div>
         );
       case 'advisor':
@@ -195,66 +183,15 @@ const App: React.FC = () => {
                   {selectedArticle.fullContent || "内容整理中，请稍后访问。"}
                 </div>
               </div>
-
-              <div className="pt-20 border-t border-stone-100 text-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-stone-300 mb-8">FIN.</p>
-                <button 
-                  onClick={() => setSelectedArticle(null)}
-                  className="bg-stone-900 text-white px-12 py-5 rounded-full text-xs font-black uppercase tracking-[0.3em] hover:bg-stone-700 transition-all shadow-xl"
-                >
-                  返回文集
-                </button>
-              </div>
             </div>
           </div>
         </div>
       )}
 
-      <footer className="border-t border-stone-200 py-32 mt-32 bg-stone-50/50">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-24">
-          <div className="col-span-1 md:col-span-2 space-y-8">
-            <div className="flex flex-col">
-              <span className="serif text-3xl font-bold text-stone-900 tracking-tighter">素问生活</span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-stone-400 font-bold mt-1">SUWEN LIVING JOURNAL</span>
-            </div>
-            <p className="text-sm text-stone-500 leading-loose font-light max-w-sm italic">
-              “夫养生者，先须绝虑。”回归素朴，在快节奏的时代里，我们邀您一起慢下来，重新认识身体的智慧。
-            </p>
-          </div>
-          <div>
-            <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-stone-900 mb-8">分卷 / INDEX</h4>
-            <ul className="space-y-4 text-xs text-stone-500 font-light uppercase tracking-widest">
-              <li className="hover:text-stone-900 cursor-pointer transition-colors">节律生活 / Seasonal</li>
-              <li className="hover:text-stone-900 cursor-pointer transition-colors">饮食美学 / Gastronomy</li>
-              <li className="hover:text-stone-900 cursor-pointer transition-colors">心智调护 / Mindful</li>
-              <li className="hover:text-stone-900 cursor-pointer transition-colors">自然疗愈 / Nature</li>
-            </ul>
-          </div>
-          <div className="space-y-8">
-            <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-stone-900 mb-8">联络 / CONTACT</h4>
-            <div className="space-y-6">
-              <p className="text-xs text-stone-400 font-light leading-relaxed">
-                订阅我们的电子札记，每周获取精选深度内容。
-              </p>
-              <div className="flex border-b border-stone-300 pb-3">
-                <input 
-                  type="email" 
-                  placeholder="邮箱地址" 
-                  className="bg-transparent text-[11px] font-medium tracking-widest outline-none flex-1 placeholder:text-stone-300"
-                />
-                <button className="text-[11px] font-black uppercase tracking-widest text-stone-900">发送</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-6 mt-32 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-stone-300 text-[10px] font-bold uppercase tracking-[0.3em] gap-8">
-          <div>© {new Date().getFullYear()} SUWEN LIVING. DESIGNED FOR TRANQUILITY.</div>
-          <div className="flex space-x-12">
-             <span className="cursor-pointer hover:text-stone-600 transition-colors">隐私协议</span>
-             <span className="cursor-pointer hover:text-stone-600 transition-colors">版权声明</span>
-             <span className="cursor-pointer hover:text-stone-600 transition-colors">INSTAGRAM</span>
-          </div>
-        </div>
+      <footer className="border-t border-stone-200 py-32 mt-32 bg-stone-50/50 text-center">
+        <p className="text-stone-300 text-[10px] font-bold uppercase tracking-[0.3em]">
+          © {new Date().getFullYear()} SUWEN LIVING. DESIGNED FOR TRANQUILITY.
+        </p>
       </footer>
     </div>
   );
